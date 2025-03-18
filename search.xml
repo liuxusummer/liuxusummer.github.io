@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Java IO</title>
+    <url>/2025/03/14/JavaIO/</url>
+    <content><![CDATA[<h2 id="JAVA-IO流"><a href="#JAVA-IO流" class="headerlink" title="JAVA IO流"></a>JAVA IO流</h2><h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><ul>
+<li><p>什么是文件?</p>
+<p>文件是保存数据的地方，比如我们经常使用的word文档，txt文件，excel文件等都是文件。文件既可以保存一张图片，也可以保存视频，声音等</p>
+</li>
+<li><p>文件流</p>
+<p>文件在程序中是以流的形式来操作的，</p>
+<p>流：数据在数据源和程序之间经历的路径</p>
+<p>输入流：数据从源到程序的路径</p>
+<p>输出流：数据从程序到数据源的路径</p>
+</li>
+</ul>
+<h3 id="常用的文件操作"><a href="#常用的文件操作" class="headerlink" title="常用的文件操作"></a>常用的文件操作</h3><ul>
+<li><p>创建文件对象相关构造器和方法</p>
+<p>相关方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//new File(String pathname) //根据路径构建一个File对象</span></span><br><span class="line"><span class="comment">//new File(File parent,String child) //根据父目录文件+子路径构建</span></span><br><span class="line"><span class="comment">//new File(String parent,String child) //根据父目录+子路径构建</span></span><br><span class="line"><span class="comment">//creatNewFile 创建新文件</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FileCreate</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">FileCreate</span> <span class="variable">fileCreate</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileCreate</span>();</span><br><span class="line">        fileCreate.create01();</span><br><span class="line">        fileCreate.create02();</span><br><span class="line">        fileCreate.creat03();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方式1</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">create01</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">filePath</span> <span class="operator">=</span> <span class="string">&quot;D:\\new1.txt&quot;</span>;</span><br><span class="line">        <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(filePath);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            file.createNewFile();</span><br><span class="line">            System.out.println(<span class="string">&quot;new1创建成功&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方式2</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">create02</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">File</span> <span class="variable">parentFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;D:\\&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">fileName</span> <span class="operator">=</span> <span class="string">&quot;new2.txt&quot;</span>;</span><br><span class="line">        <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(parentFile, fileName);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            file.createNewFile();</span><br><span class="line">            System.out.println(<span class="string">&quot;new2创建成功&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//方式3</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">creat03</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">parentPath</span> <span class="operator">=</span> <span class="string">&quot;D:\\&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">fileName</span> <span class="operator">=</span> <span class="string">&quot;new3.txt&quot;</span>;</span><br><span class="line">        <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(parentPath, fileName);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            file.createNewFile();</span><br><span class="line">            System.out.println(<span class="string">&quot;new3创建成功&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>目录的操作和文件删除</p>
+<p>mkdir创建一级目录、mkdirs创建多级目录、delete删除空目录或文件</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Directory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        m1();</span><br><span class="line">        m2();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断文件是否存在，如果存在就删除</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span>  <span class="keyword">void</span> <span class="title function_">m1</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">filePath</span> <span class="operator">=</span> <span class="string">&quot;D:\\new1.txt&quot;</span>;</span><br><span class="line">        <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(filePath);</span><br><span class="line">        <span class="keyword">if</span>(file.exists())&#123;</span><br><span class="line">            <span class="keyword">if</span>(file.delete()) System.out.println(<span class="string">&quot;删除成功&quot;</span>);</span><br><span class="line">            <span class="keyword">else</span> System.out.println(<span class="string">&quot;删除失败&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> System.out.println(<span class="string">&quot;文件不存在&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断目录是否存在，如果存在就删除，没有就创建</span></span><br><span class="line">    <span class="comment">//Java编程中，目录也被当作一种文件</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span>  <span class="keyword">void</span> <span class="title function_">m2</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">filePath</span> <span class="operator">=</span> <span class="string">&quot;D:\\demo\\a\\b&quot;</span>;</span><br><span class="line">        <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(filePath);</span><br><span class="line">        <span class="keyword">if</span>(file.exists())&#123;</span><br><span class="line">            <span class="keyword">if</span>(file.delete()) System.out.println(<span class="string">&quot;删除成功&quot;</span>);</span><br><span class="line">            <span class="keyword">else</span> System.out.println(<span class="string">&quot;删除失败&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123; System.out.println(<span class="string">&quot;目录不存在&quot;</span>);</span><br><span class="line">            <span class="keyword">if</span> ( file.mkdirs()) System.out.println(<span class="string">&quot;目录创建成功&quot;</span>);</span><br><span class="line">            <span class="keyword">else</span> System.out.println(<span class="string">&quot;目录创建失败&quot;</span>);</span><br><span class="line">        &#125;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="IO流"><a href="#IO流" class="headerlink" title="IO流"></a>IO流</h3><ul>
+<li><p>IO原理</p>
+<ul>
+<li>I&#x2F;O是Input&#x2F;Output的缩写，I&#x2F;O技术是非常实用的技术，可以用来处理数据传输。如读写文件，网络通讯等。</li>
+<li>Java中，对于数据的输入输出操作以“流（stream）”的方式进行</li>
+</ul>
+</li>
+<li><p>IO流的分类</p>
+<ul>
+<li><p>按操作数据单位不同分为：字节流（8 bit），字符流（按字符）</p>
+</li>
+<li><p>按数据流的流向不同分为：输入流，输出流</p>
+</li>
+<li><p>按流的角色不同分为：节点流，处理流&#x2F;包装流</p>
+<table>
+<thead>
+<tr>
+<th>抽象基类</th>
+<th>字节流</th>
+<th>字符流</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>输入流</td>
+<td>InputStream</td>
+<td>Reader</td>
+</tr>
+<tr>
+<td>输出流</td>
+<td>OutputStream</td>
+<td>Writer</td>
+</tr>
+</tbody></table>
+<p>java IO流共涉及40多个类，都是从以上4个抽象基类派生的</p>
+<p>由这四个基类派生出来的子类名称都是以其父类名作为子类名后缀</p>
+</li>
+<li><p>FileInputStream用法示例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FileInputStream_</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        readFile01();</span><br><span class="line">        readFile02();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用read()方法一次读取一个字节</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">readFile01</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">filePath</span> <span class="operator">=</span> <span class="string">&quot;D:\\new2.txt&quot;</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">readData</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//创建FileInputStream对象用于读取字符</span></span><br><span class="line">            fileInputStream = <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(filePath);</span><br><span class="line">            <span class="keyword">while</span>((readData = fileInputStream.read()) != -<span class="number">1</span>)&#123;</span><br><span class="line">                System.out.print((<span class="type">char</span>)readData);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            fileInputStream.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用read(byte[] b)方法一次读取多个字节</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">readFile02</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">filePath</span> <span class="operator">=</span> <span class="string">&quot;D:\\new2.txt&quot;</span>;</span><br><span class="line">        <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">8</span>]; <span class="comment">//eight bytes read once</span></span><br><span class="line">        <span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">readLen</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//创建FileInputStream对象</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            fileInputStream = <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(filePath);</span><br><span class="line">            <span class="keyword">while</span> ((readLen = fileInputStream.read(bytes)) != -<span class="number">1</span>)&#123;</span><br><span class="line">                System.out.print(<span class="keyword">new</span> <span class="title class_">String</span>(bytes,<span class="number">0</span>,readLen));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>FileOutputStream用法示例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FileOutputStream_</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        writeFile();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 演示使用FileOutputStream 将数据写到文件里</span></span><br><span class="line"><span class="comment">     * 如果文件不存在，就创建文件</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">writeFile</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">filePath</span> <span class="operator">=</span> <span class="string">&quot;D:\\new3.txt&quot;</span>;</span><br><span class="line">        FileOutputStream fileOutputStream1,fileOutputStream2 = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//1.new FileOutputStream(filePath)创建对象 写入当前内容，会覆盖原来内容</span></span><br><span class="line">            <span class="comment">//2.new FileOutputStream(filePath,true)创建对象，写入当前内容会追加到原先内容的后面</span></span><br><span class="line">            fileOutputStream1 = <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(filePath);</span><br><span class="line">            fileOutputStream2 = <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(filePath,<span class="literal">true</span>);</span><br><span class="line">            <span class="comment">//写入一个字节</span></span><br><span class="line">            fileOutputStream1.write(<span class="string">&#x27;A&#x27;</span>);</span><br><span class="line">            <span class="comment">//写入字符串</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;hello,world&quot;</span>;</span><br><span class="line">            fileOutputStream1.write(str.getBytes());</span><br><span class="line">            fileOutputStream2.write(str.getBytes());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="节点流和处理流"><a href="#节点流和处理流" class="headerlink" title="节点流和处理流"></a>节点流和处理流</h3><ol>
+<li>节点流可以从一个特定的数据源读写数据，如FileReader、FileWriter</li>
+<li>处理流（包装流）是”连接“在已存在的流之上，为程序提供更强大的读写功能，也更加灵活，如BufferedReader、BufferedWriter</li>
+<li>节点流是底层流&#x2F;低级流，直接跟数据源相连接</li>
+<li>处理流（包装流）包装节点流，既可以消除不同节点流的实现差异，也可以提供更方便的方法来完成输入输出</li>
+<li>处理流对节点流进行包装，使用了修饰器设计模式，不会直接与数据源相连</li>
+</ol>
+<ul>
+<li>BufferedReader和BufferedWriter</li>
+</ul>
+<p>演示BufferedReader</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.FileReader;</span><br><span class="line"><span class="keyword">import</span> java.io.Reader;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Reader_</span>  &#123;<span class="comment">//抽象类</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">filePath</span> <span class="operator">=</span> <span class="string">&quot;d:\\new.txt&quot;</span>;</span><br><span class="line">        <span class="type">BufferedReader</span> <span class="variable">bufferedReader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">FileReader</span>(filePath));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//读取</span></span><br><span class="line">        String len;</span><br><span class="line">        <span class="comment">//按行读取，返回null时文件读取完毕</span></span><br><span class="line">        <span class="keyword">while</span> ((len = bufferedReader.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">            System.out.println(len);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//关闭流，只需要关闭bufferedReader</span></span><br><span class="line">        bufferedReader.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>演示BufferedInputStream和BufferedOutputStream</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BufferedOutputStream_</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        copy();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">copy</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//设置源路径和目标路径</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">srcPath</span> <span class="operator">=</span> <span class="string">&quot;D:\\new.txt&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">destPath</span> <span class="operator">=</span> <span class="string">&quot;D:\\new1.txt&quot;</span>;</span><br><span class="line">        <span class="type">BufferedOutputStream</span> <span class="variable">bufferedOutputStream</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">BufferedInputStream</span> <span class="variable">bufferedInputStream</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//创建流</span></span><br><span class="line">            bufferedInputStream = <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(srcPath));</span><br><span class="line">            bufferedOutputStream = <span class="keyword">new</span> <span class="title class_">BufferedOutputStream</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(destPath));</span><br><span class="line">            <span class="type">int</span> readData;</span><br><span class="line">            <span class="comment">//读取和写入</span></span><br><span class="line">            <span class="keyword">while</span>((readData = bufferedInputStream.read()) != -<span class="number">1</span>)&#123;</span><br><span class="line">                bufferedOutputStream.write(readData);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span>(bufferedInputStream != <span class="literal">null</span>) bufferedInputStream.close();</span><br><span class="line">                <span class="keyword">if</span>(bufferedOutputStream != <span class="literal">null</span>) bufferedOutputStream.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>对象流-ObjectInputStream和ObjectOutputStream</p>
+<ul>
+<li><p>序列化和反序列化</p>
+<ul>
+<li><p>序列化就是在保存数据时，保存数据的值和数据类型</p>
+</li>
+<li><p>反序列化就是在恢复数据时，恢复数据类型和数据的值</p>
+</li>
+<li><p>需要让某个类是可序列化的，该类必须实现以下两个接口之一</p>
+<ol>
+<li>Serializable （标记接口，没有方法，推荐）</li>
+<li>Externalizable</li>
+</ol>
+<p>ObjectOutputStream用法示例</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import java.io.FileOutputStream;</span><br><span class="line">import java.io.ObjectOutputStream;</span><br><span class="line">import java.io.Serializable;</span><br><span class="line"></span><br><span class="line">public class ObjectOutPutStream_ &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception&#123;</span><br><span class="line">        //设置序列化后保存文件的路径</span><br><span class="line">        String filePath = &quot;D:\\data.dat&quot;;</span><br><span class="line">        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath));</span><br><span class="line">        //序列化数据到目标文件</span><br><span class="line">        oos.writeDouble(1.1);</span><br><span class="line">        oos.writeInt(26);</span><br><span class="line">        oos.writeUTF(&quot;字符串&quot;);</span><br><span class="line">        oos.writeObject(new Dog(&quot;小黄&quot;,3));  //保存一个自定义类的对象</span><br><span class="line">        oos.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//自定义Dog类</span><br><span class="line">class Dog implements Serializable&#123;</span><br><span class="line">    String name;</span><br><span class="line">    int age;</span><br><span class="line"></span><br><span class="line">    public Dog(String name, int age) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<p>​    </p>
+<p>​   ObjectInputStream用法示例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">import</span> com.liuxu.io.BufferedOutputStream_.* ;  <span class="comment">//引入Dog类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ObjectInputStream_</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="comment">//读取 反序列化</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">filePath</span> <span class="operator">=</span> <span class="string">&quot;D:\\data.dat&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">ObjectInputStream</span> <span class="variable">ois</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(filePath));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//读取的顺序要和保存的数据一致，不然会出现异常</span></span><br><span class="line">        System.out.println(ois.readDouble());</span><br><span class="line">        System.out.println(ois.readInt());</span><br><span class="line">        System.out.println(ois.readUTF());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//首先要保证Dog类引入</span></span><br><span class="line">        <span class="comment">//如果希望调用Dog对象的方法，需要向下转型</span></span><br><span class="line">        <span class="comment">//需要将Dog类的定义放到可以引用的位置</span></span><br><span class="line">        <span class="type">Object</span> <span class="variable">dog</span> <span class="operator">=</span> ois.readObject();</span><br><span class="line">        <span class="type">Dog</span> <span class="variable">dog1</span> <span class="operator">=</span> (Dog)dog;</span><br><span class="line">        System.out.println(((Dog) dog).age);</span><br><span class="line">        System.out.println(dog);</span><br><span class="line"></span><br><span class="line">        ois.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意事项</strong></p>
+<ol>
+<li>序列化和反序列化时读写顺序要一致</li>
+<li>需要被序列化和反序列化的对象需要实现Serializable接口</li>
+<li>序列化的类中建议添加SerialVersionUID，来提高版本兼容性</li>
+<li>序列化对象时默认会序列化所有属性，除了static和transient修饰的成员</li>
+<li>一个类被序列化，则该类的子类也可以被序列化，序列化具备可继承性</li>
+</ol>
+<ul>
+<li><p>转换流InputStreamReader 和 OutStreamWriter</p>
+<p>Java默认为UTF-8编码，当文件的编码方式不是UTF-8时，读取时可能会出现乱码，这时就需要转换流来指定编码</p>
+</li>
+</ul>
+<p>InputStreamReader示例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InputStreamReader_</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">filePath</span> <span class="operator">=</span> <span class="string">&quot;D:\\new.txt&quot;</span>;</span><br><span class="line">        <span class="comment">//FileInputStream 转成 InputStreamReader,指定编码GBK</span></span><br><span class="line">        <span class="type">InputStreamReader</span> <span class="variable">gbk</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(filePath), <span class="string">&quot;gbk&quot;</span>);</span><br><span class="line">        <span class="type">BufferedReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(gbk);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//读取并输出</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> reader.readLine();</span><br><span class="line">        System.out.println(s);</span><br><span class="line"></span><br><span class="line">        reader.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>OutputStreamWriter示例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FilterOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OutPutStreamWriter_</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">filePath</span> <span class="operator">=</span> <span class="string">&quot;D:\\new.txt&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">OutputStreamWriter</span> <span class="variable">utf8</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OutputStreamWriter</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(filePath), <span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line"></span><br><span class="line">        utf8.write(<span class="string">&quot;以utf8编码写入&quot;</span>);</span><br><span class="line"></span><br><span class="line">        utf8.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用 Spring Cloud Gateway + JWT 实现微服务接口鉴权</title>
+    <url>/2024/10/14/Spring%20Cloud%20Gateway%20+%20JWT%20%E5%AE%9E%E7%8E%B0%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8E%A5%E5%8F%A3%E9%89%B4%E6%9D%83/</url>
+    <content><![CDATA[<h1 id="一、什么是网关"><a href="#一、什么是网关" class="headerlink" title="一、什么是网关"></a>一、什么是网关</h1><p>在微服务架构中，接口鉴权是保障系统安全性的核心环节，当用户请求进来的时候，统一先由网关层验证请求是否合法。</p>
+<p>网关存在的必要性包括：</p>
+<ol>
+<li><strong>统一鉴权入口</strong>：所有请求经过网关时完成身份验证，避免每个微服务重复实现鉴权逻辑</li>
+<li><strong>跨系统兼容</strong>：适用于前后端分离、多客户端接入等场景</li>
+<li><strong>高性能验证</strong>：网关层快速验证令牌有效性，仅放行合法请求</li>
+</ol>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%9B%BE.3gok1yf19y.webp"
+                        alt="图片"
+                 ></p>
+<p>Spring Cloud Gateway 旨在为微服务架构提供一种简单而有效的网关解决方案。它作为API网关，位于客户端和各个微服务之间，不仅可以用来做请求转发和响应适配，还能提供监控、鉴权、流量控制等一系列功能，极大地简化了微服务架构中的网络交互逻辑。</p>
+<blockquote>
+<p>技术官网：&lt;<a class="link"   href="https://spring.io/projects/spring-cloud-gateway" >Spring Cloud Gateway<i class="fas fa-external-link-alt"></i></a>&gt;</p>
+</blockquote>
+<h1 id="二、什么是-JWT"><a href="#二、什么是-JWT" class="headerlink" title="二、什么是 JWT"></a>二、什么是 JWT</h1><p>JSON Web Token（JWT）是一种开放标准（RFC 7519），用于在网络应用环境间安全地将信息作为 JSON 对象传输。此信息可以验证和信任，因为它是由头部、载荷和签名三部分组成，并进行了签名加密。</p>
+<p>JWT的特点包括：</p>
+<ol>
+<li><strong>自我包含</strong>：JWT包含了必要的用户信息和其他声明数据，这使得接收方无需查询数据库即可完成身份验证。</li>
+<li><strong>紧凑性</strong>：由于其体积小，JWT 可以通过 URL、POST 参数或 HTTP 头部来传递，便于在不同的域之间进行传输。</li>
+<li><strong>安全性</strong>：使用 HMAC 算法或者 RSA&#x2F;ECDSA 的公钥&#x2F;私钥对进行签名，确保了 token 的完整性和不可篡改性。同时，还可以通过加密来保护敏感信息。</li>
+<li><strong>跨域与单点登录（SSO）</strong>：非常适合于分布式系统和单点登录场景，因为 JWT 可以在不同安全域间传输用户认证信息。</li>
+<li><strong>减少服务器状态</strong>：JWT 的设计理念是无状态的，这意味着所有的必要信息都在 token 本身中携带，减少了服务端存储 session 的需求。</li>
+<li><strong>可扩展性</strong>：支持多种加密算法，能够根据需要选择合适的加密方式来保证 token 的安全性。</li>
+<li><strong>过期时间控制</strong>：JWT 支持设置过期时间，在指定的时间之后自动失效，增加了额外的安全层。</li>
+<li><strong>易于使用</strong>：生成和解析 JWT 相对简单，很多编程语言都提供了相应的库来处理 JWT。</li>
+</ol>
+<blockquote>
+<p>查阅官网获得更多相关信息 &lt;<a class="link"   href="https://jwt.p2hp.com/" >jwt 中文网 官网 JSON Web Tokens (p2hp.com)<i class="fas fa-external-link-alt"></i></a>&gt;</p>
+</blockquote>
+<h1 id="三、技术方案"><a href="#三、技术方案" class="headerlink" title="三、技术方案"></a>三、技术方案</h1><p>实现一个用户微服务鉴权的小案例，在黑名单中的 API 需要用户在请求时在请求头中带上 JWT。请求先经过网关之后到达客户微服务。</p>
+<ol>
+<li>客户端携带 JWT 调用相关接口</li>
+<li>网关验证请求中的 JWT 有效性</li>
+<li>验证通过后路由到对应微服务</li>
+<li>微服务无需重复鉴权，可直接解析 JWT 获取用户信息</li>
+</ol>
+<h1 id="四、具体实现步骤"><a href="#四、具体实现步骤" class="headerlink" title="四、具体实现步骤"></a>四、具体实现步骤</h1><h2 id="1-创建Spring-Cloud-Gateway项目"><a href="#1-创建Spring-Cloud-Gateway项目" class="headerlink" title="1. 创建Spring Cloud Gateway项目"></a>1. 创建Spring Cloud Gateway项目</h2><p><strong>Maven依赖配置</strong>：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-gateway<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-loadbalancer<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- jjwt start --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.jsonwebtoken<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jjwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.xml.bind<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.sun.xml.bind<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-impl<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.sun.xml.bind<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.activation<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activation<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- jjwt end --&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.fastjson2<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-UserInfoDTO-封装"><a href="#2-UserInfoDTO-封装" class="headerlink" title="2. UserInfoDTO 封装"></a>2. UserInfoDTO 封装</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@Builder</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserInfoDTO</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户 ID</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String userId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 真实姓名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String realName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-JWT-工具类封装"><a href="#3-JWT-工具类封装" class="headerlink" title="3. JWT 工具类封装"></a>3. JWT 工具类封装</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">JWTUtil</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">EXPIRATION</span> <span class="operator">=</span> <span class="number">86400L</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">TOKEN_PREFIX</span> <span class="operator">=</span> <span class="string">&quot;Bearer &quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">ISS</span> <span class="operator">=</span> <span class="string">&quot;index&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">SECRET</span> <span class="operator">=</span> <span class="string">&quot;SecretKey***********&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生成用户 Token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> userInfo 用户信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 用户访问 Token</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">generateAccessToken</span><span class="params">(UserInfoDTO userInfo)</span> &#123;</span><br><span class="line">        Map&lt;String, Object&gt; customerUserMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        customerUserMap.put(USER_ID_KEY, userInfo.getUserId());</span><br><span class="line">        customerUserMap.put(USER_NAME_KEY, userInfo.getUsername());</span><br><span class="line">        customerUserMap.put(REAL_NAME_KEY, userInfo.getRealName());</span><br><span class="line">        <span class="type">String</span> <span class="variable">jwtToken</span> <span class="operator">=</span> Jwts.builder()</span><br><span class="line">                .signWith(SignatureAlgorithm.HS512, SECRET)</span><br><span class="line">                .setIssuedAt(<span class="keyword">new</span> <span class="title class_">Date</span>())</span><br><span class="line">                .setIssuer(ISS)</span><br><span class="line">                .setSubject(JSON.toJSONString(customerUserMap))</span><br><span class="line">                .setExpiration(<span class="keyword">new</span> <span class="title class_">Date</span>(System.currentTimeMillis() + EXPIRATION * <span class="number">1000</span>))</span><br><span class="line">                .compact();</span><br><span class="line">        <span class="keyword">return</span> TOKEN_PREFIX + jwtToken;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解析用户 Token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> jwtToken 用户访问 Token</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 用户信息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> UserInfoDTO <span class="title function_">parseJwtToken</span><span class="params">(String jwtToken)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.hasText(jwtToken)) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">actualJwtToken</span> <span class="operator">=</span> jwtToken.replace(TOKEN_PREFIX, <span class="string">&quot;&quot;</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="type">Claims</span> <span class="variable">claims</span> <span class="operator">=</span> Jwts.parser().setSigningKey(SECRET).parseClaimsJws(actualJwtToken).getBody();</span><br><span class="line">                <span class="type">Date</span> <span class="variable">expiration</span> <span class="operator">=</span> claims.getExpiration();</span><br><span class="line">                <span class="keyword">if</span> (expiration.after(<span class="keyword">new</span> <span class="title class_">Date</span>())) &#123;</span><br><span class="line">                    <span class="type">String</span> <span class="variable">subject</span> <span class="operator">=</span> claims.getSubject();</span><br><span class="line">                    <span class="keyword">return</span> JSON.parseObject(subject, UserInfoDTO.class);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (ExpiredJwtException ignored) &#123;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">                log.error(<span class="string">&quot;JWT Token解析失败，请检查&quot;</span>, ex);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-实现-Gateway-Token-过滤器"><a href="#4-实现-Gateway-Token-过滤器" class="headerlink" title="4. 实现 Gateway Token 过滤器"></a>4. 实现 Gateway Token 过滤器</h2><p>配置类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Config</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 黑名单前置路径</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; blackPathPre;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>自定义过滤器：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TokenValidateGatewayFilterFactory</span> <span class="keyword">extends</span> <span class="title class_">AbstractGatewayFilterFactory</span>&lt;Config&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TokenValidateGatewayFilterFactory</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(Config.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 注销用户时需要传递 Token</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DELETION_PATH</span> <span class="operator">=</span> <span class="string">&quot;/api/user-service/deletion&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> GatewayFilter <span class="title function_">apply</span><span class="params">(Config config)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (exchange, chain) -&gt; &#123;</span><br><span class="line">            <span class="type">ServerHttpRequest</span> <span class="variable">request</span> <span class="operator">=</span> exchange.getRequest();</span><br><span class="line">            <span class="type">String</span> <span class="variable">requestPath</span> <span class="operator">=</span> request.getPath().toString();</span><br><span class="line">            <span class="keyword">if</span> (isPathInBlackPreList(requestPath, config.getBlackPathPre())) &#123;</span><br><span class="line">                <span class="type">String</span> <span class="variable">token</span> <span class="operator">=</span> request.getHeaders().getFirst(<span class="string">&quot;Authorization&quot;</span>);</span><br><span class="line">                <span class="comment">// 需要验证 Token 是否有效，有可能用户注销了账户，但是 Token 有效期还未过</span></span><br><span class="line">                <span class="type">UserInfoDTO</span> <span class="variable">userInfo</span> <span class="operator">=</span> JWTUtil.parseJwtToken(token);</span><br><span class="line">                <span class="keyword">if</span> (!validateToken(userInfo)) &#123;</span><br><span class="line">                    <span class="type">ServerHttpResponse</span> <span class="variable">response</span> <span class="operator">=</span> exchange.getResponse();</span><br><span class="line">                    response.setStatusCode(HttpStatus.UNAUTHORIZED);</span><br><span class="line">                    <span class="keyword">return</span> response.setComplete();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                ServerHttpRequest.<span class="type">Builder</span> <span class="variable">builder</span> <span class="operator">=</span> exchange.getRequest().mutate().headers(httpHeaders -&gt; &#123;</span><br><span class="line">                    httpHeaders.set(UserConstant.USER_ID_KEY, userInfo.getUserId());</span><br><span class="line">                    httpHeaders.set(UserConstant.USER_NAME_KEY, userInfo.getUsername());</span><br><span class="line">                    httpHeaders.set(UserConstant.REAL_NAME_KEY, URLEncoder.encode(userInfo.getRealName(), StandardCharsets.UTF_8));</span><br><span class="line">                    <span class="keyword">if</span> (Objects.equals(requestPath, DELETION_PATH)) &#123;</span><br><span class="line">                        httpHeaders.set(UserConstant.USER_TOKEN_KEY, token);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">                <span class="keyword">return</span> chain.filter(exchange.mutate().request(builder.build()).build());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> chain.filter(exchange);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">isPathInBlackPreList</span><span class="params">(String requestPath, List&lt;String&gt; blackPathPre)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (CollectionUtils.isEmpty(blackPathPre)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> blackPathPre.stream().anyMatch(requestPath::startsWith);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">validateToken</span><span class="params">(UserInfoDTO userInfo)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> userInfo != <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-配置路由规则"><a href="#5-配置路由规则" class="headerlink" title="5. 配置路由规则"></a>5. 配置路由规则</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">user-service</span>  <span class="comment"># 用户微服务名称</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://user-service/api/user-service/**</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/api/user-service/**</span></span><br><span class="line">          <span class="attr">filters:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">TokenValidate</span></span><br><span class="line">              <span class="attr">args:</span></span><br><span class="line">                <span class="attr">blackPathPre:</span>  <span class="comment"># 需要过滤的路径</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="string">/api/user-service/passenger</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="string">/api/user-service/query</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="string">/api/user-service/logout</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="string">/api/user-service/deletion</span>            </span><br></pre></td></tr></table></figure>
+
+<h1 id="五、测试验证"><a href="#五、测试验证" class="headerlink" title="五、测试验证"></a>五、测试验证</h1><p>使用 Postman 进行测试：</p>
+<p><strong>1. 登录获取Token</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">POST /auth/login</span><br><span class="line">Body: &#123;&quot;username&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;123456&quot;&#125;</span><br><span class="line"></span><br><span class="line">Response:</span><br><span class="line">&#123;</span><br><span class="line">    &quot;token&quot;: &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2. 携带Token访问受保护接口</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GET /api/orders</span><br><span class="line">Headers: Authorization: Bearer &lt;token&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3. 无效Token测试</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GET /api/orders</span><br><span class="line">Headers: Authorization: Bearer invalid_token</span><br><span class="line"></span><br><span class="line">Response:</span><br><span class="line">&#123;</span><br><span class="line">    &quot;code&quot;: 401,</span><br><span class="line">    &quot;message&quot;: &quot;Invalid token&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h1><p>本文实现的鉴权方案具有以下优势：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>性能开销低</td>
+<td>网关层完成基础验证，下游服务无需重复处理</td>
+</tr>
+<tr>
+<td>扩展性强</td>
+<td>支持水平扩展网关节点</td>
+</tr>
+<tr>
+<td>跨语言支持</td>
+<td>JWT 标准规范，各语言均可解析</td>
+</tr>
+<tr>
+<td>微服务友好</td>
+<td>与 Spring Cloud 生态无缝集成</td>
+</tr>
+</tbody></table>
+<p>通过网关层的统一鉴权，我们实现了安全防护与业务逻辑的解耦，为微服务架构提供了可靠的安全基石。后续可结合 OAuth2.0 协议扩展第三方应用接入能力。</p>
+]]></content>
+      <categories>
+        <category>后端开发</category>
+      </categories>
+      <tags>
+        <tag>微服务</tag>
+        <tag>后端开发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数发科具身智能行业调研</title>
+    <url>/2025/03/14/%E6%95%B0%E5%8F%91%E7%A7%91%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD%E8%B0%83%E7%A0%94/</url>
+    <content><![CDATA[<h1 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1 介绍"></a>1 介绍</h1><p>具身智能（Embodied Intelligence）是指一种基于物理身体进行感知和行动的智能系统。这种智能系统通过与环境的交互获取信息、理解问题、做出决策并实现行动，从而产生智能行为和适应性。具身智能强调智能不仅存在于大脑中，而是通过身体与环境的互动来实现认知、感知、决策和行动。<br>具身智能的核心在于“具身”和“智能”两个方面。“具身”指的是具有物理载体的智能体，能够通过感知器和执行器与环境进行交互；“智能”则指物理实体能够主动进行感知、理解、推理、决策和行动等任务。具身智能强调身体在认知过程中的重要性，认为身体参与了认知、影响了思维、判断、态度和情绪等。<br>具身智能的应用场景广泛，包括机器人、自动驾驶汽车、智能扫地机器人等。它被认为是迈向通用人工智能（AGI）的重要一步，因为通过与环境的互动，可以不断学习和进化，提高适应性和创新能力。</p>
+<p>与传统AI的区别：</p>
+<ul>
+<li><p>离身智能（Disembodied AI）：以符号主义为核心，依赖算法和静态数据（如ChatGPT），无法直接影响物理世界。</p>
+</li>
+<li><p>具身智能：通过传感器（视觉、触觉、听觉等）和执行器（机械臂、轮式底盘等）实现“感知-思考-行动”闭环，强调实时交互和物理反馈。</p>
+<p>理论分类：</p>
+</li>
+<li><p>弱具身：认知依赖身体，但保留计算和表征功能（如自动驾驶汽车）。</p>
+</li>
+<li><p>强具身：认知由身体与世界的互动塑造（如人形机器人）。</p>
+</li>
+</ul>
+<p>核心特征包括：</p>
+<ol>
+<li>感知-决策-行动闭环：智能体通过传感器获取环境信息，实时决策并执行动作，形成反馈循环。</li>
+<li>身体与环境的协同作用：身体结构直接影响任务解决效率，例如灵巧手设计可简化抓取任务的算法复杂度。</li>
+<li>多模态感知与适应：融合视觉、触觉、听觉等数据，实现复杂场景下的动态适应。</li>
+<li>虚实融合形态：涵盖实体机器人（如人形机器人）和虚拟代理（如游戏NPC）。应用领域包括机器人技术、自动驾驶、虚拟现实和工业自动化等。</li>
+</ol>
+<h1 id="2-应用领域"><a href="#2-应用领域" class="headerlink" title="2 应用领域"></a>2 应用领域</h1><p>具身智能的核心优势在于环境自适应和多任务泛化</p>
+<table>
+<thead>
+<tr>
+<th>领域</th>
+<th>应用场景</th>
+<th>典型案例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>工业制造</td>
+<td>柔性生产线适配、高精度装配</td>
+<td>特斯拉Optimus电池工厂作业</td>
+</tr>
+<tr>
+<td>医疗健康</td>
+<td>手术辅助机器人、老年陪护、心理健康筛查</td>
+<td>江苏妇幼保健院“飞燕”心理健康机器人</td>
+</tr>
+<tr>
+<td>物流运输</td>
+<td>仓储自动化、无人配送</td>
+<td>菜鸟物流AGV智能分拣系统</td>
+</tr>
+<tr>
+<td>家庭服务</td>
+<td>全场景家务（清洁、烹饪）、儿童教育互动</td>
+<td>小米CyberOne家庭助手</td>
+</tr>
+<tr>
+<td>自动驾驶</td>
+<td>复杂路况决策、车路协同</td>
+<td>Waymo第五代自动驾驶系统</td>
+</tr>
+</tbody></table>
+<h1 id="3-技术概述"><a href="#3-技术概述" class="headerlink" title="3 技术概述"></a>3 技术概述</h1><ul>
+<li>感知与交互技术：具身智能需要能够实时地感知和理解环境，包括视觉、听觉、触觉等多模态数据。同时，智能系统还需要能够与环境进行有效交互，这涉及到自然语言处理、计算机视觉、语音识别等技术。如何准确、高效地进行感知和交互是一个重要的技术挑战。</li>
+<li>实时决策与行动技术：具身智能需要根据环境的变化实时做出决策和行动。这要求系统具备快速响应的能力，同时在复杂环境中保持稳定性和可靠性。</li>
+<li>数据获取与处理：高质量的数据是具身智能发展的关键，但数据的获取和标注是一项艰巨的任务，尤其是在复杂的现实场景中。此外，数据的隐私性和敏感性也对能力优化迭代提出了限制。</li>
+<li>算法与模型能力：具身智能的“大脑”学习仍需人类智能的介入，目前尚未实现完全自主的学习能力。现有的算法和模型在处理复杂任务时仍存在不足，需要进一步提升。</li>
+<li>硬件与软件的深度融合：具身智能的硬件层面需要解决耐用性、能源效率以及与软件的深度集成等问题。软件层面则需要统一的操作系统和标准化工具链，以实现软硬件的高效协同。</li>
+<li>多任务处理与安全性：具身智能需要在多任务处理中保持高效性和安全性，特别是在人机协作场景中，确保机器人不会对人类造成伤害或意外破坏环境。</li>
+</ul>
+<h1 id="4-相关模型"><a href="#4-相关模型" class="headerlink" title="4 相关模型"></a>4 相关模型</h1><h2 id="4-1-分层决策模型"><a href="#4-1-分层决策模型" class="headerlink" title="4.1 分层决策模型"></a>4.1 分层决策模型</h2><p>技术特点：将任务分解为感知-决策-控制层级，上层依赖大模型（如LLM&#x2F;VLM），底层采用传统控制方法。<br>代表模型有</p>
+<ol>
+<li>Google RT系列：RT-1和RT-2基于视觉语言模型（如PaLM-E）生成动作指令，提升泛化能力。</li>
+<li>英伟达VIMA：结合T5模型编码多模态输入，通过交叉注意力调节控制器，任务成功率提升2.9倍。</li>
+<li>Figure AI分层架构：顶层使用OpenAI多模态模型，中层策略网络生成动作指令，底层执行控制。优势：模块化设计降低数据需求，适合多任务迁移。</li>
+</ol>
+<h2 id="4-2-端到端模型"><a href="#4-2-端到端模型" class="headerlink" title="4.2 端到端模型"></a>4.2 端到端模型</h2><p>技术特点：直接映射感知输入到动作输出，覆盖全流程信息处理。<br>代表模型：</p>
+<ol>
+<li>RT-2-X：基于OpenX-Embodiment数据集训练，实现跨机器人平台的通用控制。</li>
+<li>Meta RoboAgent：通过仿真和真实数据联合训练，支持复杂操作任务。</li>
+<li>智源NaVid：首个视频驱动的多模态具身大模型，优化长程任务规划。</li>
+</ol>
+<h2 id="4-3多模态大模型"><a href="#4-3多模态大模型" class="headerlink" title="4.3多模态大模型"></a>4.3多模态大模型</h2><p>技术方向：原生多模态融合（如视觉-语言-动作联合建模）。<br>代表模型：</p>
+<ol>
+<li>VoxPoser（斯坦福） ：结合视觉语言模型生成机器人操作路径。</li>
+<li>Emu3-8B（智源） ：提升对真实世界的模拟能力。</li>
+</ol>
+<h2 id="4-4-其他模型"><a href="#4-4-其他模型" class="headerlink" title="4.4 其他模型"></a>4.4 其他模型</h2><ol>
+<li>Physical Intelligence (PI) ：面向工业场景的具身模型，优化动作精度。</li>
+<li>Skild Brain：基于强化学习的通用策略模型，适应动态环境。</li>
+</ol>
+<p>Covariant RFM-1：结合仿真与真实数据，提升机器人抓取效率。</p>
+<h1 id="5-相关数据集"><a href="#5-相关数据集" class="headerlink" title="5 相关数据集"></a>5 相关数据集</h1><p>具身智能常用数据集</p>
+<h2 id="5-1-RoboMIND"><a href="#5-1-RoboMIND" class="headerlink" title="5.1 RoboMIND"></a>5.1 RoboMIND</h2><p>特点：覆盖5.5万轨迹数据、279项任务、61种物体，支持多本体（单臂&#x2F;双臂&#x2F;人形机器人）和多场景（家居&#x2F;工厂&#x2F;零售）。<br>优势：数据质量与一致性优于OpenX-Embodiment，提升模仿学习模型成功率20%以上。</p>
+<h2 id="5-2-OpenX-Embodiment"><a href="#5-2-OpenX-Embodiment" class="headerlink" title="5.2 OpenX-Embodiment"></a>5.2 OpenX-Embodiment</h2><p>特点：全球最大跨平台数据集，整合22种机器人、527项技能、16万任务轨迹，涵盖机械臂、轮式机器人等。<br>应用：训练RT-X模型，跨场景任务成功率提升50%。</p>
+<h2 id="5-3-DexGraspNet"><a href="#5-3-DexGraspNet" class="headerlink" title="5.3 DexGraspNet"></a>5.3 DexGraspNet</h2><p>特点：北京大学构建的132万条灵巧手抓取数据，覆盖多样物体和姿态，抓取成功率提升10%。</p>
+<h2 id="5-4-其他相关数据集"><a href="#5-4-其他相关数据集" class="headerlink" title="5.4 其他相关数据集"></a>5.4 其他相关数据集</h2><p>Saycan：多模态感知数据集，融合视觉、触觉和语音，用于交互任务训练。<br>UNITREE G1：人形机器人操作数据，支持复杂动作泛化。<br>AgiBot World：百万级真实场景数据，覆盖80+生活技能，规模为OpenX-Embodiment的10倍。</p>
+<h1 id="6-具身智能面临的挑战"><a href="#6-具身智能面临的挑战" class="headerlink" title="6 具身智能面临的挑战"></a>6 具身智能面临的挑战</h1><p><strong>一、技术层面的核心挑战</strong></p>
+<ul>
+<li><p>感知与多模态协同难题：<br> 具身智能需实时整合视觉、听觉、触觉等多模态数据以实现环境感知，但目前单一模态模型的精度不足，且多模态数据融合面临时空对齐困难。例如，家庭服务机器人需同时处理语音指令、物体识别和避障信息，但传感器噪声和动态环境变化易导致感知偏差。此外，模拟人类“系统1”的快速直觉反应（如紧急避障）与“系统2”的深度推理（如长期规划）之间的认知映射尚未突破。</p>
+</li>
+<li><p>实时决策与行动延迟：<br> 具身智能需在毫秒级响应时间内完成“感知-决策-执行”闭环。例如，自动驾驶汽车需以100Hz频率更新决策，但现有大模型的推理速度（如10Hz）难以满足实时性要求。同时，强化学习在复杂场景下的样本效率低下，导致训练周期长、成本高。</p>
+</li>
+<li><p>硬件与软件的深度集成瓶颈：<br> 硬件限制：执行器精度（如仿生关节的力矩控制）、能源效率（如电池续航）和材料耐久性（如柔性传感器的耐磨损性）制约物理交互能力。软件适配：算法需针对特定硬件架构优化，例如人形机器人的运动控制算法需与电机驱动协议深度耦合，跨平台通用性不足。</p>
+</li>
+<li><p>数据获取与泛化能力不足：<br>具身智能依赖动态交互数据，但真实场景数据采集成本高昂（如1小时自动驾驶多模态数据成本超万元）。此外，数据多样性不足导致泛化能力受限，例如工业机器人难以从有限工厂数据迁移到家庭场景。</p>
+</li>
+</ul>
+<p><strong>二、伦理与安全风险</strong></p>
+<ul>
+<li><p>隐私与数据安全威胁：<br>具身智能设备（如家庭机器人）通过摄像头、麦克风持续收集生物特征、行为习惯等敏感数据，存在被恶意入侵或滥用的风险。例如，人形机器人可能被远程操控实施窃听或监视。数据加密与匿名化处理技术尚未成熟，难以平衡数据效用与隐私保护。</p>
+</li>
+<li><p>责任归属与伦理决策困境：<br>当具身智能系统引发事故时（如医疗机器人误诊、自动驾驶车辆碰撞），责任难以界定。现有法律框架未明确开发者、运营商与用户的责任边界。伦理决策机制亦存争议，例如在“电车难题”场景中，如何编程伦理优先级（如保护乘客vs.行人）缺乏共识。</p>
+</li>
+<li><p>社会公平与就业冲击：<br>具身智能可能加剧数字鸿沟：高收入群体优先享受智能服务，而低收入岗位（如制造业、物流）面临大规模替代风险。高盛预测，AI或导致全球3亿岗位消失，需重构社会保障体系以应对失业潮。</p>
+</li>
+</ul>
+<p><strong>三、法律与监管挑战</strong></p>
+<ul>
+<li><p>标准体系缺失:<br>技术评测标准（如感知精度、运动稳定性）尚未统一，国内外基准测试（如Habitat 3.0、AIIA EAI Bench）仍受限于数据规模与任务复杂度。安全标准亦滞后，例如机器人物理攻击防护、网络安全漏洞检测缺乏强制规范。</p>
+</li>
+<li><p>跨司法管辖区协调难题:<br>具身智能的全球化应用面临法律冲突：欧盟GDPR强调数据本地化，而美国更侧重技术自由流通。国际社会亟需建立统一的伦理准则与技术互认机制。</p>
+</li>
+<li><p>动态监管与合规成本:<br>现有监管框架（如产品责任法、网络安全法）难以适应技术快速迭代。企业需投入高额成本满足合规要求（如自动驾驶车辆的双地冗余系统认证），可能抑制创新活力。</p>
+</li>
+</ul>
+<p><strong>四、社会接受度与人文挑战</strong></p>
+<ul>
+<li><p>用户信任建立:<br>公众对具身智能的可靠性存疑。例如，老年群体对护理机器人的情感排斥、家长对教育机器人数据采集的担忧，需通过透明化算法（如可解释性AI）和长期行为验证逐步消解。</p>
+</li>
+<li><p>人机交互伦理重构:<br>具身智能体（如伴侣机器人）可能模糊人与机器的界限，引发身份认同危机。需界定机器人的社会角色权限（如是否赋予部分法律人格），避免情感依赖或道德异化。</p>
+</li>
+<li><p>文化适应性差异:<br>技术需适配多元文化场景：例如，宗教地区对机器人形体的禁忌、不同国家对隐私保护的敏感度差异，要求本地化设计与跨文化协作。</p>
+</li>
+</ul>
+<h1 id="7-参考资料"><a href="#7-参考资料" class="headerlink" title="7 参考资料"></a>7 参考资料</h1><ol>
+<li>具身智能 | CCF专家谈术语：<a class="link"   href="https://zhuanlan.zhihu.com/p/645495691" >https://zhuanlan.zhihu.com/p/645495691<i class="fas fa-external-link-alt"></i></a></li>
+<li>具身智能技术概述：<a class="link"   href="https://zhuanlan.zhihu.com/p/683202243" >https://zhuanlan.zhihu.com/p/683202243<i class="fas fa-external-link-alt"></i></a></li>
+<li>具身智能：AI 走向物理世界的重要途径：<a class="link"   href="https://pdf.dfcfw.com/pdf/H3_AP202410121640273716_1.pdf?1728739852000.pdf" >https://pdf.dfcfw.com/pdf/H3_AP202410121640273716_1.pdf?1728739852000.pdf<i class="fas fa-external-link-alt"></i></a></li>
+<li>头豹-2024年中国具身智能行业研究：<a class="link"   href="https://pdf.dfcfw.com/pdf/H3_AP202408121639245277_1.pdf?1723491571000.pdf" >https://pdf.dfcfw.com/pdf/H3_AP202408121639245277_1.pdf?1723491571000.pdf<i class="fas fa-external-link-alt"></i></a></li>
+<li>具身智能技术发展与行业应用简析：<a class="link"   href="https://download.s21i.co99.net/28254755/0/0/ABUIABA9GAAgmcKqvQYomLfimwU.pdf?f=2025%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD%E8%A1%8C%E4%B8%9A%E5%8F%91%E5%B1%95%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD%E6%8A%80%E6%9C%AF%E5%8F%91%E5%B1%95%E4%B8%8E%E8%A1%8C%E4%B8%9A%E5%BA%94%E7%94%A8%E7%AE%80%E6%9E%90.pdf&amp;v=1739235609" >https://download.s21i.co99.net/28254755/0/0/ABUIABA9GAAgmcKqvQYomLfimwU.pdf?f=2025%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD%E8%A1%8C%E4%B8%9A%E5%8F%91%E5%B1%95%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD%E6%8A%80%E6%9C%AF%E5%8F%91%E5%B1%95%E4%B8%8E%E8%A1%8C%E4%B8%9A%E5%BA%94%E7%94%A8%E7%AE%80%E6%9E%90.pdf&amp;v=1739235609<i class="fas fa-external-link-alt"></i></a></li>
+<li>具身智能入门指南 Embodied-AI-Guide：<a class="link"   href="https://github.com/tianxingchen/Embodied-AI-Guide" >https://github.com/tianxingchen/Embodied-AI-Guide<i class="fas fa-external-link-alt"></i></a></li>
+<li>行业资讯：<a class="link"   href="http://www.robotcz.cn/second1.asp?xlm=2" >http://www.robotcz.cn/second1.asp?xlm=2<i class="fas fa-external-link-alt"></i></a></li>
+<li>国内外典型的智能机器人大模型详解：<a class="link"   href="https://www.i-newcar.com/index.php?m=home&amp;c=View&amp;a=index&amp;aid=3382" >https://www.i-newcar.com/index.php?m=home&amp;c=View&amp;a=index&amp;aid=3382<i class="fas fa-external-link-alt"></i></a></li>
+<li>国内外典型具身智能大模型关键信息梳理：<a class="link"   href="https://3cst.cn/Information/info/10aCijHHqmgr11ea8d6300163e0473d8" >https://3cst.cn/Information/info/10aCijHHqmgr11ea8d6300163e0473d8<i class="fas fa-external-link-alt"></i></a></li>
+<li>最全具身智能数据集分享系列 | 全球有哪些高质量具身智能数据集：<a class="link"   href="https://www.molardata.com/article/EmbodiedAIDatasets#_1-agibot-world" >https://www.molardata.com/article/EmbodiedAIDatasets#_1-agibot-world<i class="fas fa-external-link-alt"></i></a></li>
+<li>具身智能机器人大数据集Open X-Embodiment和具身大模型RT-X论文解读：<a class="link"   href="https://zhuanlan.zhihu.com/p/666323712" >https://zhuanlan.zhihu.com/p/666323712<i class="fas fa-external-link-alt"></i></a></li>
+<li>具身智能文献综述：<a class="link"   href="https://arxiv.org/pdf/2407.06886" >https://arxiv.org/pdf/2407.06886<i class="fas fa-external-link-alt"></i></a></li>
+<li>Paper list for Embodied AI：<a class="link"   href="https://github.com/HCPLab-SYSU/Embodied_AI_Paper_List" >https://github.com/HCPLab-SYSU/Embodied_AI_Paper_List<i class="fas fa-external-link-alt"></i></a></li>
+<li>医疗具身智能发展综述：<a class="link"   href="https://arxiv.org/abs/2501.07468" >https://arxiv.org/abs/2501.07468<i class="fas fa-external-link-alt"></i></a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Master</category>
+      </categories>
+      <tags>
+        <tag>调研</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用责任链模式重构复杂业务场景</title>
+    <url>/2025/03/18/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F%E9%87%8D%E6%9E%84%E5%A4%8D%E6%9D%82%E4%B8%9A%E5%8A%A1%E5%9C%BA%E6%99%AF/</url>
+    <content><![CDATA[<h1 id="什么是责任链模式"><a href="#什么是责任链模式" class="headerlink" title="什么是责任链模式"></a>什么是责任链模式</h1><p>责任链模式是一种<strong>行为设计模式</strong>，允许多个对象（处理器）依次处理同一个请求，形成一个处理链。请求会沿着链传递，直到某个对象处理它为止。每个处理器可以决定是否处理请求或将其传递给链中的下一个处理器。</p>
+<p><strong>核心思想</strong>  ：</p>
+<ul>
+<li><strong>解耦发送者与接收者</strong>：发送者无需知道具体由哪个对象处理请求，只需将请求发送到链中。  </li>
+<li><strong>动态组合处理流程</strong>：通过调整链中处理器的顺序或增减处理器，灵活改变处理逻辑。</li>
+</ul>
+<h1 id="责任链模式的优缺点"><a href="#责任链模式的优缺点" class="headerlink" title="责任链模式的优缺点"></a>责任链模式的优缺点</h1><p><strong>优点</strong> ：</p>
+<ul>
+<li><p><strong>解耦性</strong>：发送者与接收者解耦，避免直接依赖。  </p>
+</li>
+<li><p><strong>灵活性</strong>：运行时动态调整处理链（如增删处理器）。  </p>
+</li>
+<li><p><strong>单一职责原则</strong>：每个处理器只关注自己能处理的逻辑。  </p>
+</li>
+<li><p><strong>可扩展性</strong>：新增处理器时无需修改现有代码。</p>
+</li>
+</ul>
+<p><strong>缺点</strong> ：</p>
+<ul>
+<li><p><strong>请求可能未被处理</strong>：若链中没有合适的处理器，请求会被忽略。  </p>
+</li>
+<li><p><strong>性能问题</strong>：长链可能导致处理延迟（需遍历多个对象）。  </p>
+</li>
+<li><p><strong>调试困难</strong>：请求的传递路径不直观，需跟踪整个链。</p>
+</li>
+</ul>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ul>
+<li><p><strong>多级请求处理</strong>：权限验证（依次检查用户角色、IP限制、访问频率等）。  </p>
+</li>
+<li><p><strong>日志处理</strong>：  日志框架中不同级别的处理器（DEBUG → INFO → ERROR）。  </p>
+</li>
+<li><p><strong>异常处理</strong>：  Java 中的 <code>try-catch</code> 块链，按顺序匹配异常类型。</p>
+</li>
+<li><p><strong>事件冒泡机制</strong>：如浏览器中的事件传播机制，事件从目标元素向上传播至顶层元素，途中可以被任何父级元素拦截并处理。</p>
+</li>
+<li><p><strong>过滤器&#x2F;拦截器</strong>：例如 Java Servlet 中的 Filter 链、Spring 中的 Interceptor 等，用于在请求到达 Servlet 或 Controller 之前进行预处理，比如权限检查、日志记录等。</p>
+</li>
+<li><p><strong>GUI 框架中的命令分发</strong>：用户界面组件层次结构中，命令可以从子组件向上传递给父组件处理，以此类推，直到找到能够处理该命令的组件为止。</p>
+</li>
+<li><p><strong>工作流引擎</strong>：在工作流管理系统中，任务或请求可以根据业务规则自动流转到相应的环节进行处理。</p>
+</li>
+</ul>
+<h1 id="简单示例代码"><a href="#简单示例代码" class="headerlink" title="简单示例代码"></a>简单示例代码</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 抽象处理器</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Handler</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> Handler next;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setNext</span><span class="params">(Handler next)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">handleRequest</span><span class="params">(Request request)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体处理器A</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ConcreteHandlerA</span> <span class="keyword">extends</span> <span class="title class_">Handler</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleRequest</span><span class="params">(Request request)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (request.getType().equals(<span class="string">&quot;A&quot;</span>)) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;HandlerA 处理请求&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (next != <span class="literal">null</span>) &#123;</span><br><span class="line">            next.handleRequest(request); <span class="comment">// 传递请求</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体处理器B</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ConcreteHandlerB</span> <span class="keyword">extends</span> <span class="title class_">Handler</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleRequest</span><span class="params">(Request request)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (request.getType().equals(<span class="string">&quot;B&quot;</span>)) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;HandlerB 处理请求&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (next != <span class="literal">null</span>) &#123;</span><br><span class="line">            next.handleRequest(request);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Handler</span> <span class="variable">handlerA</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ConcreteHandlerA</span>();</span><br><span class="line">        <span class="type">Handler</span> <span class="variable">handlerB</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ConcreteHandlerB</span>();</span><br><span class="line">        handlerA.setNext(handlerB); <span class="comment">// 构建责任链</span></span><br><span class="line"></span><br><span class="line">        <span class="type">Request</span> <span class="variable">request</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Request</span>(<span class="string">&quot;B&quot;</span>);</span><br><span class="line">        handlerA.handleRequest(request); <span class="comment">// 输出：HandlerB 处理请求</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="案例实战：用户注册校验"><a href="#案例实战：用户注册校验" class="headerlink" title="案例实战：用户注册校验"></a>案例实战：用户注册校验</h1><h2 id="1-步骤分析"><a href="#1-步骤分析" class="headerlink" title="1 步骤分析"></a>1 步骤分析</h2><p>用 Java 的 SpringBoot 框架开发一个用户注册的接口，流程如下：</p>
+<ol>
+<li><p>用户填写注册表单，发送 POST 请求</p>
+</li>
+<li><p>Controller 接口拿到封装好的 UserRegisterDTO 对象</p>
+</li>
+<li><p>用责任链模式校验 UserRegisterDTO 字段内容是否合理合法</p>
+<ol>
+<li><p>校验 username 是否已经被注册</p>
+</li>
+<li><p>校验其他字段是否为空</p>
+<p>……</p>
+</li>
+</ol>
+</li>
+<li><p>后续业务代码</p>
+</li>
+</ol>
+<p>这里重点关注第三步的写法</p>
+<h2 id="2-实战编码"><a href="#2-实战编码" class="headerlink" title="2 实战编码"></a>2 实战编码</h2><h3 id="UserRegisterReqDTO"><a href="#UserRegisterReqDTO" class="headerlink" title="UserRegisterReqDTO"></a>UserRegisterReqDTO</h3><p>用来接收用户填写的个人注册信息，包括用户名、密码、邮箱等字段</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserRegisterReqDTO</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 密码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 证件号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String idCard;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 手机号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 邮箱</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String mail;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="IChainHandler"><a href="#IChainHandler" class="headerlink" title="IChainHandler"></a>IChainHandler</h3><p><strong>所有责任链对象的顶层接口</strong></p>
+<blockquote>
+<p>实现 Ordered 方法是为了给链上的实际处理逻辑排序</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.core.Ordered;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">IChainHandler</span>&lt;T&gt; <span class="keyword">extends</span> <span class="title class_">Ordered</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 执行责任链逻辑</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">handler</span><span class="params">(T requestParam)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 责任链标识</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String <span class="title function_">id</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="IUserRegisterChainHandler"><a href="#IUserRegisterChainHandler" class="headerlink" title="IUserRegisterChainHandler"></a>IUserRegisterChainHandler</h3><p><strong>用户注册责任链的接口</strong>，所有用户注册校验的具体实现类都要实现这个接口，接口中需要给 id 赋值</p>
+<blockquote>
+<p>这一层是具体业务的抽象，后续还可以拓展其他业务，比如用户下单校验、用户查询校验等。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">IUserRegisterChainHandler</span>&lt;T <span class="keyword">extends</span> <span class="title class_">UserRegisterDTO</span>&gt; <span class="keyword">extends</span> <span class="title class_">IChainHandler</span>&lt;UserRegisterDTO&gt; &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">default</span> String <span class="title function_">id</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;USER_REGISTER_FILTER&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="UserRegisterHasUsernameChainHandler"><a href="#UserRegisterHasUsernameChainHandler" class="headerlink" title="UserRegisterHasUsernameChainHandler"></a>UserRegisterHasUsernameChainHandler</h3><p><strong>用户注册校验接口的具体实现类</strong>，功能是校验  username 字段是否存在</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">UserRegisterHasUsernameChainHandler</span> <span class="keyword">implements</span> <span class="title class_">IUserRegisterChainFilter</span>&lt;UserRegisterDTO&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handler</span><span class="params">(UserRegisterDTO requestParam)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!userService.hasUsername(requestParam.getUsername())) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BizException</span>(<span class="string">&quot;HAS_USERNAME_NOTNULL&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="UserRegisterParamNotNullChainHandler"><a href="#UserRegisterParamNotNullChainHandler" class="headerlink" title="UserRegisterParamNotNullChainHandler"></a>UserRegisterParamNotNullChainHandler</h3><p><strong>用户注册校验接口的具体实现类</strong>，功能是校验字段是否为空，为空直接抛出异常</p>
+<blockquote>
+<p>作为后端程序员不能完全信任前端传过来的对象，一定要做好校验，确保系统安全</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">UserRegisterParamNotNullChainHandler</span> <span class="keyword">implements</span> <span class="title class_">IUserRegisterChainFilter</span>&lt;UserRegisterDTO&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handler</span><span class="params">(UserRegisterDTO requestParam)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(requestParam.getUsername())) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BizException</span>(<span class="string">&quot;USER_NAME_ISNULL&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Objects.isNull(requestParam.getPassword())) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BizException</span>(<span class="string">&quot;PASSWORD_ISNULL&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Objects.isNull(requestParam.getPhone())) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BizException</span>(<span class="string">&quot;PHONE_ISNULL&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Objects.isNull(requestParam.getIdCard())) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BizException</span>(<span class="string">&quot;ID_CARD_ISNULL&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Objects.isNull(requestParam.getMail())) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BizException</span>(<span class="string">&quot;MAIL_ISNULL&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-如何调用？"><a href="#3-如何调用？" class="headerlink" title="3 如何调用？"></a>3 如何调用？</h2><h3 id="ChainContext"><a href="#ChainContext" class="headerlink" title="ChainContext"></a>ChainContext</h3><p>写好的责任链如何调用呢，需要有一个<strong>责任链上下文对象</strong>来调用，这个对象实现的功能如下：</p>
+<ul>
+<li>从 ioc 容器中获取所有<code>IChainHandler.class</code> 对象</li>
+<li>根据 id 标识获取特定的责任链，并根据 Order 排序</li>
+<li>遍历责任链中的每个节点，依次调用 handler 方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.boot.CommandLineRunner;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.Ordered;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.CollectionUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 责任链上下文</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">ChainContext</span>&lt;T&gt; <span class="keyword">implements</span> <span class="title class_">CommandLineRunner</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, List&lt;IChainHandler&gt;&gt; chainHandlerContainer = <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 责任链组件执行</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> id         责任链组件标识</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> requestParam 请求参数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handler</span><span class="params">(String id, T requestParam)</span> &#123;</span><br><span class="line">        List&lt;IChainHandler&gt; chainHandlers = chainHandlerContainer.get(id);</span><br><span class="line">        <span class="keyword">if</span> (CollectionUtils.isEmpty(chainHandlers)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;Chain of Handler is empty&quot;</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        chainHandlers.forEach(each -&gt; each.handler(requestParam));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 从 ioc 容器获取所有责任链组件</span></span><br><span class="line">        Map&lt;String, IChainHandler&gt; chainFilterMap = ApplicationContext.getBeansOfType(IChainHandler.class);</span><br><span class="line">        </span><br><span class="line">        chainFilterMap.forEach((beanName, bean) -&gt; &#123;</span><br><span class="line">            List&lt;IChainHandler&gt; chainHandlers = chainHandlerContainer.get(bean.id());</span><br><span class="line">            <span class="keyword">if</span> (CollectionUtils.isEmpty(chainHandlers)) &#123;</span><br><span class="line">                chainHandlers = <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            chainHandlers.add(bean);</span><br><span class="line">            List&lt;IChainHandler&gt; actualIChainHandlers = chainHandlers.stream()</span><br><span class="line">                    .sorted(Comparator.comparing(Ordered::getOrder))</span><br><span class="line">                    .collect(Collectors.toList());</span><br><span class="line">            chainHandlerContainer.put(bean.id(), actualIChainHandlers);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="UserServiceImpl"><a href="#UserServiceImpl" class="headerlink" title="UserServiceImpl"></a>UserServiceImpl</h3><p>最后，在业务代码中通过构造器注入 ChainContext 对象来调用责任链:</p>
+<p><code>chainContext.handler(&quot;USER_REGISTER_FILTER&quot;, requestParam);</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">IUserService</span> &#123;</span><br><span class="line"> <span class="comment">// 构造注入</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ChainContext&lt;UserRegisterReqDTO&gt; chainContext;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Transactional</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> UserRegisterRespDTO <span class="title function_">register</span><span class="params">(UserRegisterDTO requestParam)</span> &#123;</span><br><span class="line">        <span class="comment">// 责任链，对用户传递来的消息进行校验</span></span><br><span class="line">        chainContext.handler(<span class="string">&quot;USER_REGISTER_FILTER&quot;</span>, requestParam);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 后续业务代码</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Jailbreak Attacks and Defenses Against Large Language Models A Survey</title>
+    <url>/2025/03/15/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%B6%8A%E7%8B%B1%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E5%BE%A1%E7%BB%BC%E8%BF%B0/</url>
+    <content><![CDATA[<blockquote>
+<p>论文地址：<a class="link"   href="https://arxiv.org/pdf/2407.04295" >https://arxiv.org/pdf/2407.04295<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+<p>这篇文章系统综述了大语言模型面临的<strong>越狱攻击（Jailbreak Attacks）</strong>及其防御方法，分析了当前研究的主要分类、技术手段和挑战。主要贡献如下：</p>
+<ul>
+<li>提供越狱攻击和防御方法的系统分类。根据目标 LLM 对攻击者的透明度，将攻击方法分为<strong>白盒攻击</strong>和<strong>黑盒攻击</strong>两大类，并将它们分为更多的子类以供进一步调查。同样，防御方法分为<strong>提示级</strong>和<strong>模型级</strong>防御。</li>
+<li>重点介绍了不同攻击和防御方法之间的关系。尽管某种防御方法旨在对抗特定的攻击方法，但有时它也被证明对其他攻击方法有效。</li>
+<li>对当前的评估方法进行调查。简要介绍了越狱研究中流行的指标，并总结了当前的基准，包括一些框架和数据集。</li>
+</ul>
+<h1 id="1-研究背景"><a href="#1-研究背景" class="headerlink" title="1. 研究背景"></a>1. 研究背景</h1><p>• <strong>大语言模型的安全挑战</strong>：尽管LLMs在文本生成任务中表现卓越，但其安全对齐（Safety Alignment）仍存在漏洞，可能被对抗性提示（Adversarial Prompts）诱导生成违反政策或伦理的恶意内容，即“越狱攻击”。<br>• <strong>越狱攻击的危害</strong>：可能导致隐私泄露、虚假信息传播甚至操控自动化系统，威胁模型的安全性和社会信任。</p>
+<p>尽管一些研究提供了现有越狱攻击方法的全面定义和总结，但它们并未深入研究分类。为了填补这一空白，本文提出了一种新颖而全面的现有越狱攻击和防御方法分类法，并进一步强调了它们之间的关系。此外，作为补充，我们还对当前的评估方法进行了调查，以确保对当前与越狱相关的研究有透彻的了解。</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/image.9kgc4opcgf.webp"
+                        alt="攻防方法的分类和关系"
+                 ></p>
+<h1 id="2-攻击方法分类"><a href="#2-攻击方法分类" class="headerlink" title="2. 攻击方法分类"></a>2. 攻击方法分类</h1><p>攻击方法根据对模型透明度的依赖分为<strong>白盒攻击</strong>和<strong>黑盒攻击</strong>：</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%B6%8A%E7%8B%B1%E6%94%BB%E9%98%B2%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0.99tibd8444.webp"
+                        alt="大模型越狱攻击"
+                 ></p>
+<h2 id="白盒攻击（需访问模型内部信息）"><a href="#白盒攻击（需访问模型内部信息）" class="headerlink" title="白盒攻击（需访问模型内部信息）"></a>白盒攻击（需访问模型内部信息）</h2><ol>
+<li><p><strong>基于梯度的方法</strong>（如 GCG、AutoDAN）：<br>• 通过梯度优化生成对抗性后缀，诱导模型输出恶意内容。例如，GCG 通过迭代优化后缀绕过安全过滤，具体来说，他们在提示后附加一个对抗性后缀，并迭代执行以下步骤：计算后缀每个位置的 top-k 替换，选择随机替换标记，计算给定替换的最佳替换，并更新后缀。<br>• 改进方向：提高可读性（如 AutoDAN ）或效率（如随机搜索优化）。</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/%E5%9F%BA%E4%BA%8E%E6%A2%AF%E5%BA%A6%E7%9A%84%E6%94%BB%E5%87%BB.3d4y4iw59w.webp"
+                        alt="基于梯度的攻击"
+                 ></p>
+</li>
+<li><p><strong>基于Logits的方法</strong>：<br>• 操纵模型输出 token 的概率分布（如 COLD 攻击），迫使模型选择低概率的恶意token。</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/%E5%9F%BA%E4%BA%8Elogits%E7%9A%84%E6%94%BB%E5%87%BB.2rvai854se.webp"
+                        alt="基于 logits 的攻击"
+                 ></p>
+</li>
+<li><p><strong>基于微调的方法</strong>：<br>• 使用少量恶意数据微调模型（如LoRA），直接破坏其安全对齐。例如，仅需100个有害样本即可显著增加漏洞。</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/%E5%9F%BA%E4%BA%8E%E5%BE%AE%E8%B0%83%E7%9A%84%E6%94%BB%E5%87%BB.9kgc4oxc1x.webp"
+                        alt="基于微调的攻击"
+                 ></p>
+</li>
+</ol>
+<h2 id="黑盒攻击（仅需模型输出）"><a href="#黑盒攻击（仅需模型输出）" class="headerlink" title="黑盒攻击（仅需模型输出）"></a><strong>黑盒攻击</strong>（仅需模型输出）</h2><ol>
+<li><p><strong>模板补全（Template Completion）</strong>：<br>• 通过场景嵌套（如DeepInception）、上下文攻击（如In-Context Attack）或代码注入（如CodeChameleon）绕过检测。</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/%E6%A8%A1%E7%89%88%E8%A1%A5%E5%85%A8%E6%94%BB%E5%87%BB.175jirccb6.webp"
+                        alt="模版补全攻击"
+                 ></p>
+</li>
+<li><p><strong>提示重写（Prompt Rewriting）</strong>：<br>• 使用密码（如CipherChat）、低资源语言（如多语言攻击）或遗传算法生成隐蔽的对抗性提示。</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/%E6%8F%90%E7%A4%BA%E8%AF%8D%E9%87%8D%E5%86%99%E6%94%BB%E5%87%BB.77dpnhnsrl.webp"
+                        alt="提示词重写"
+                 ></p>
+</li>
+<li><p><strong>基于LLM的生成</strong>：<br>• 利用LLM自动生成越狱提示（如MASTERKEY、PAIR框架），或构建多智能体协作系统（如多角色Agent攻击）。</p>
+</li>
+</ol>
+<h1 id="3-防御方法分类"><a href="#3-防御方法分类" class="headerlink" title="3. 防御方法分类"></a>3. 防御方法分类</h1><p>防御方法分为<strong>提示级防御</strong>和<strong>模型级防御</strong>：</p>
+<h2 id="提示级防御（不修改模型）"><a href="#提示级防御（不修改模型）" class="headerlink" title="提示级防御（不修改模型）"></a><strong>提示级防御</strong>（不修改模型）</h2><ol>
+<li><p><strong>提示检测（Prompt Detection）</strong>：<br>• 基于困惑度（Perplexity）或分类器（如 LightGBM ）过滤异常输入，但可能误判正常请求。</p>
+</li>
+<li><p><strong>提示扰动（Prompt Perturbation）</strong>：<br>• 对输入进行随机掩码（如Erase-and-Check）或字符级扰动（如SmoothLLM），破坏对抗性结构。</p>
+</li>
+<li><p><strong>系统提示保护（System Prompt Safeguard）</strong>：<br>• 设计安全导向的系统提示（如SPML、SMEA），引导模型生成合规响应。</p>
+</li>
+</ol>
+<h2 id="模型级防御（修改模型参数）"><a href="#模型级防御（修改模型参数）" class="headerlink" title="模型级防御（修改模型参数）"></a><strong>模型级防御</strong>（修改模型参数）</h2><ol>
+<li><p><strong>监督微调（SFT-based）</strong>：<br>• 使用安全数据集微调模型（如Alpaca混合数据），增强其拒绝恶意请求的能力。</p>
+</li>
+<li><p><strong>基于人类反馈的强化学习（RLHF）</strong>：<br>• 结合人类标注优化模型对齐（如Llama-2的RLHF流程）。</p>
+</li>
+<li><p><strong>梯度与 Logit 分析</strong>：<br>• 检测异常梯度或Logit模式（如 JailGuard），识别潜在攻击。</p>
+</li>
+<li><p><strong>代理防御（Proxy Defense）</strong>：<br>• 引入辅助模型（如 Llama-guard ）过滤输入或输出，但可能被对抗性前缀绕过（如PRP攻击）。</p>
+</li>
+</ol>
+<h1 id="4-评估"><a href="#4-评估" class="headerlink" title="4. 评估"></a>4. 评估</h1><h2 id="评估数据集"><a href="#评估数据集" class="headerlink" title="评估数据集"></a>评估数据集</h2><p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/%E8%B6%8A%E7%8B%B1%E8%AF%84%E4%BC%B0%E6%95%B0%E6%8D%AE%E9%9B%86.102bnbwv6n.webp"
+                        alt="数据集"
+                 ></p>
+<h2 id="评估工具包"><a href="#评估工具包" class="headerlink" title="评估工具包"></a>评估工具包</h2><p>与主要用于评估 LLM 安全性的数据集相比，工具包通常集成了整个评估管道，并且可以扩展以自动评估越狱攻击。</p>
+<ul>
+<li><p><strong>HarmBench</strong> 提出了一个评估框架，可以估计越狱攻击和防御方法。</p>
+</li>
+<li><p><strong>SafetyPrompts</strong>  建立了一个平台来估计中文 LLM 的安全性。在评估中，将不同安全场景的越狱提示输入到目标 LLM 中，然后由 LLM 评估员检查响应，给出综合评分以判断目标 LLM 的安全性。为了对当前的越狱研究进行全面且可重复的比较，</p>
+</li>
+<li><p><strong>JailbreakBench</strong>，这是一个适用于越狱攻击和防御方法的轻量级评估框架。特别是，JailbreakBench 维护了大多数最先进的对抗提示、防御方法和评估分类器，以便用户可以轻松调用它们来构建个人评估管道。</p>
+</li>
+<li><p><strong>EasyJailbreak</strong>  提出了一个标准化框架，该框架由三个阶段组成，用于估计越狱攻击。在准备阶段，用户提供包括恶意问题和模板种子在内的越狱设置。然后在推理阶段，EasyJailbreak 将模板应用于问题以构建越狱提示，并在将提示输入目标模型之前对其进行修改以获得响应。在最后阶段，基于 LLM 或基于规则的评估器检查查询和相应的响应，以提供总体指标。</p>
+</li>
+</ul>
+<h1 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h1><p>在本文中，我们提出了越狱 LLM 中攻击和防御方法的综合分类法，并提出了一个详细的范例来证明它们之间的关系。本文对现有工作进行了总结，发现攻击方法越来越有效，对目标模型的了解也越来越少，这使得攻击更加实用，需要有效的防御。这可能是全面理解不安全模型带来的真正风险的未来方向。此外，我们调查和比较了当前越狱攻击和防御的评估基准。我们希望我们的工作能够识别当前越狱攻防赛跑中的差距，为未来的研究提供坚实的启发。</p>
+]]></content>
+      <categories>
+        <category>Master</category>
+      </categories>
+      <tags>
+        <tag>论文阅读</tag>
+        <tag>大模型安全</tag>
+        <tag>综述</tag>
+      </tags>
+  </entry>
+</search>

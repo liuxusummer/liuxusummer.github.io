@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="liuxu">
+    
+    <title>
+        
+            Jailbreak Attacks and Defenses Against Large Language Models A Survey |
+        
+        liuxu
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/avatar.jpg">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"liuxu","author":"liuxu","avatar":"/images/avatar.jpg","logo":"/images/avatar.jpg","favicon":"/images/avatar.jpg"},"menu":{"home":"/                       || fa-solid fa-home","archives":"/archives           || fa-solid fa-box-archive","tags":"/tags                   || fa-solid fa-tags","categories":"/categories       || fa-solid fa-layer-group","about":"/about                 || fa-solid fa-user-graduate"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"保持热爱，奔赴山海。"},"social_contact":{"enable":true,"links":{"github":"https://github.com/liuxusummer"}},"scroll":{"progress_bar":true,"percent":true,"hide_header":true},"home":{"announcement":null,"category":true,"tag":true,"post_datetime":"updated"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.36"},"waline":{"server_url":null,"reaction":false,"version":"3.2.1"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":false,"provider":"cdnjs"},"pjax":{"enable":true},"footer":{"since":2025,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":false,"list":[{"code":null,"link":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/avatar.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               liuxu
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-home"></i>
+                                
+                                首页
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-box-archive"></i>
+                                
+                                归档
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/tags">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-tags"></i>
+                                
+                                标签
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/categories">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-layer-group"></i>
+                                
+                                分类
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/about">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-user-graduate"></i>
+                                
+                                关于
+                                
+                            </a>
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="menu-text-color fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-home"></i>
+                                </span>
+                            
+                            首页
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-box-archive"></i>
+                                </span>
+                            
+                            归档
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/tags">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-tags"></i>
+                                </span>
+                            
+                            标签
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/categories">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-layer-group"></i>
+                                </span>
+                            
+                            分类
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/about">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-user-graduate"></i>
+                                </span>
+                            
+                            关于
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        Jailbreak Attacks and Defenses Against Large Language Models A Survey
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.jpg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">liuxu</span>
+                                
+                                    <span class="author-badge">Lv1</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2025-03-15 20:19:46</span>
+            </span>
+
+            
+                <span class="meta-info-item post-update-date">
+                    <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                    <span class="datetime" data-updated="Sun Mar 16 2025 14:18:44 GMT+0000">2025-03-16 14:18:44</span>
+                </span>
+            
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/Master/">Master</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AE%89%E5%85%A8/">大模型安全</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E7%BB%BC%E8%BF%B0/">综述</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>1.7k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>5 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <blockquote>
+<p>论文地址：<a class="link"   target="_blank" rel="noopener" href="https://arxiv.org/pdf/2407.04295" >https://arxiv.org/pdf/2407.04295<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+<p>这篇文章系统综述了大语言模型面临的<strong>越狱攻击（Jailbreak Attacks）</strong>及其防御方法，分析了当前研究的主要分类、技术手段和挑战。主要贡献如下：</p>
+<ul>
+<li>提供越狱攻击和防御方法的系统分类。根据目标 LLM 对攻击者的透明度，将攻击方法分为<strong>白盒攻击</strong>和<strong>黑盒攻击</strong>两大类，并将它们分为更多的子类以供进一步调查。同样，防御方法分为<strong>提示级</strong>和<strong>模型级</strong>防御。</li>
+<li>重点介绍了不同攻击和防御方法之间的关系。尽管某种防御方法旨在对抗特定的攻击方法，但有时它也被证明对其他攻击方法有效。</li>
+<li>对当前的评估方法进行调查。简要介绍了越狱研究中流行的指标，并总结了当前的基准，包括一些框架和数据集。</li>
+</ul>
+<h1 id="1-研究背景"><a href="#1-研究背景" class="headerlink" title="1. 研究背景"></a>1. 研究背景</h1><p>• <strong>大语言模型的安全挑战</strong>：尽管LLMs在文本生成任务中表现卓越，但其安全对齐（Safety Alignment）仍存在漏洞，可能被对抗性提示（Adversarial Prompts）诱导生成违反政策或伦理的恶意内容，即“越狱攻击”。<br>• <strong>越狱攻击的危害</strong>：可能导致隐私泄露、虚假信息传播甚至操控自动化系统，威胁模型的安全性和社会信任。</p>
+<p>尽管一些研究提供了现有越狱攻击方法的全面定义和总结，但它们并未深入研究分类。为了填补这一空白，本文提出了一种新颖而全面的现有越狱攻击和防御方法分类法，并进一步强调了它们之间的关系。此外，作为补充，我们还对当前的评估方法进行了调查，以确保对当前与越狱相关的研究有透彻的了解。</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/image.9kgc4opcgf.webp"
+                        alt="攻防方法的分类和关系"
+                 ></p>
+<h1 id="2-攻击方法分类"><a href="#2-攻击方法分类" class="headerlink" title="2. 攻击方法分类"></a>2. 攻击方法分类</h1><p>攻击方法根据对模型透明度的依赖分为<strong>白盒攻击</strong>和<strong>黑盒攻击</strong>：</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%B6%8A%E7%8B%B1%E6%94%BB%E9%98%B2%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0.99tibd8444.webp"
+                        alt="大模型越狱攻击"
+                 ></p>
+<h2 id="白盒攻击（需访问模型内部信息）"><a href="#白盒攻击（需访问模型内部信息）" class="headerlink" title="白盒攻击（需访问模型内部信息）"></a>白盒攻击（需访问模型内部信息）</h2><ol>
+<li><p><strong>基于梯度的方法</strong>（如 GCG、AutoDAN）：<br>• 通过梯度优化生成对抗性后缀，诱导模型输出恶意内容。例如，GCG 通过迭代优化后缀绕过安全过滤，具体来说，他们在提示后附加一个对抗性后缀，并迭代执行以下步骤：计算后缀每个位置的 top-k 替换，选择随机替换标记，计算给定替换的最佳替换，并更新后缀。<br>• 改进方向：提高可读性（如 AutoDAN ）或效率（如随机搜索优化）。</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/%E5%9F%BA%E4%BA%8E%E6%A2%AF%E5%BA%A6%E7%9A%84%E6%94%BB%E5%87%BB.3d4y4iw59w.webp"
+                        alt="基于梯度的攻击"
+                 ></p>
+</li>
+<li><p><strong>基于Logits的方法</strong>：<br>• 操纵模型输出 token 的概率分布（如 COLD 攻击），迫使模型选择低概率的恶意token。</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/%E5%9F%BA%E4%BA%8Elogits%E7%9A%84%E6%94%BB%E5%87%BB.2rvai854se.webp"
+                        alt="基于 logits 的攻击"
+                 ></p>
+</li>
+<li><p><strong>基于微调的方法</strong>：<br>• 使用少量恶意数据微调模型（如LoRA），直接破坏其安全对齐。例如，仅需100个有害样本即可显著增加漏洞。</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/%E5%9F%BA%E4%BA%8E%E5%BE%AE%E8%B0%83%E7%9A%84%E6%94%BB%E5%87%BB.9kgc4oxc1x.webp"
+                        alt="基于微调的攻击"
+                 ></p>
+</li>
+</ol>
+<h2 id="黑盒攻击（仅需模型输出）"><a href="#黑盒攻击（仅需模型输出）" class="headerlink" title="黑盒攻击（仅需模型输出）"></a><strong>黑盒攻击</strong>（仅需模型输出）</h2><ol>
+<li><p><strong>模板补全（Template Completion）</strong>：<br>• 通过场景嵌套（如DeepInception）、上下文攻击（如In-Context Attack）或代码注入（如CodeChameleon）绕过检测。</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/%E6%A8%A1%E7%89%88%E8%A1%A5%E5%85%A8%E6%94%BB%E5%87%BB.175jirccb6.webp"
+                        alt="模版补全攻击"
+                 ></p>
+</li>
+<li><p><strong>提示重写（Prompt Rewriting）</strong>：<br>• 使用密码（如CipherChat）、低资源语言（如多语言攻击）或遗传算法生成隐蔽的对抗性提示。</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/%E6%8F%90%E7%A4%BA%E8%AF%8D%E9%87%8D%E5%86%99%E6%94%BB%E5%87%BB.77dpnhnsrl.webp"
+                        alt="提示词重写"
+                 ></p>
+</li>
+<li><p><strong>基于LLM的生成</strong>：<br>• 利用LLM自动生成越狱提示（如MASTERKEY、PAIR框架），或构建多智能体协作系统（如多角色Agent攻击）。</p>
+</li>
+</ol>
+<h1 id="3-防御方法分类"><a href="#3-防御方法分类" class="headerlink" title="3. 防御方法分类"></a>3. 防御方法分类</h1><p>防御方法分为<strong>提示级防御</strong>和<strong>模型级防御</strong>：</p>
+<h2 id="提示级防御（不修改模型）"><a href="#提示级防御（不修改模型）" class="headerlink" title="提示级防御（不修改模型）"></a><strong>提示级防御</strong>（不修改模型）</h2><ol>
+<li><p><strong>提示检测（Prompt Detection）</strong>：<br>• 基于困惑度（Perplexity）或分类器（如 LightGBM ）过滤异常输入，但可能误判正常请求。</p>
+</li>
+<li><p><strong>提示扰动（Prompt Perturbation）</strong>：<br>• 对输入进行随机掩码（如Erase-and-Check）或字符级扰动（如SmoothLLM），破坏对抗性结构。</p>
+</li>
+<li><p><strong>系统提示保护（System Prompt Safeguard）</strong>：<br>• 设计安全导向的系统提示（如SPML、SMEA），引导模型生成合规响应。</p>
+</li>
+</ol>
+<h2 id="模型级防御（修改模型参数）"><a href="#模型级防御（修改模型参数）" class="headerlink" title="模型级防御（修改模型参数）"></a><strong>模型级防御</strong>（修改模型参数）</h2><ol>
+<li><p><strong>监督微调（SFT-based）</strong>：<br>• 使用安全数据集微调模型（如Alpaca混合数据），增强其拒绝恶意请求的能力。</p>
+</li>
+<li><p><strong>基于人类反馈的强化学习（RLHF）</strong>：<br>• 结合人类标注优化模型对齐（如Llama-2的RLHF流程）。</p>
+</li>
+<li><p><strong>梯度与 Logit 分析</strong>：<br>• 检测异常梯度或Logit模式（如 JailGuard），识别潜在攻击。</p>
+</li>
+<li><p><strong>代理防御（Proxy Defense）</strong>：<br>• 引入辅助模型（如 Llama-guard ）过滤输入或输出，但可能被对抗性前缀绕过（如PRP攻击）。</p>
+</li>
+</ol>
+<h1 id="4-评估"><a href="#4-评估" class="headerlink" title="4. 评估"></a>4. 评估</h1><h2 id="评估数据集"><a href="#评估数据集" class="headerlink" title="评估数据集"></a>评估数据集</h2><p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://github.com/liuxusummer/picx-images-hosting/raw/master/%E8%B6%8A%E7%8B%B1%E8%AF%84%E4%BC%B0%E6%95%B0%E6%8D%AE%E9%9B%86.102bnbwv6n.webp"
+                        alt="数据集"
+                 ></p>
+<h2 id="评估工具包"><a href="#评估工具包" class="headerlink" title="评估工具包"></a>评估工具包</h2><p>与主要用于评估 LLM 安全性的数据集相比，工具包通常集成了整个评估管道，并且可以扩展以自动评估越狱攻击。</p>
+<ul>
+<li><p><strong>HarmBench</strong> 提出了一个评估框架，可以估计越狱攻击和防御方法。</p>
+</li>
+<li><p><strong>SafetyPrompts</strong>  建立了一个平台来估计中文 LLM 的安全性。在评估中，将不同安全场景的越狱提示输入到目标 LLM 中，然后由 LLM 评估员检查响应，给出综合评分以判断目标 LLM 的安全性。为了对当前的越狱研究进行全面且可重复的比较，</p>
+</li>
+<li><p><strong>JailbreakBench</strong>，这是一个适用于越狱攻击和防御方法的轻量级评估框架。特别是，JailbreakBench 维护了大多数最先进的对抗提示、防御方法和评估分类器，以便用户可以轻松调用它们来构建个人评估管道。</p>
+</li>
+<li><p><strong>EasyJailbreak</strong>  提出了一个标准化框架，该框架由三个阶段组成，用于估计越狱攻击。在准备阶段，用户提供包括恶意问题和模板种子在内的越狱设置。然后在推理阶段，EasyJailbreak 将模板应用于问题以构建越狱提示，并在将提示输入目标模型之前对其进行修改以获得响应。在最后阶段，基于 LLM 或基于规则的评估器检查查询和相应的响应，以提供总体指标。</p>
+</li>
+</ul>
+<h1 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h1><p>在本文中，我们提出了越狱 LLM 中攻击和防御方法的综合分类法，并提出了一个详细的范例来证明它们之间的关系。本文对现有工作进行了总结，发现攻击方法越来越有效，对目标模型的了解也越来越少，这使得攻击更加实用，需要有效的防御。这可能是全面理解不安全模型带来的真正风险的未来方向。此外，我们调查和比较了当前越狱攻击和防御的评估基准。我们希望我们的工作能够识别当前越狱攻防赛跑中的差距，为未来的研究提供坚实的启发。</p>
+
+                    
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                Jailbreak Attacks and Defenses Against Large Language Models A Survey
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2025/03/15/论文阅读笔记/大模型越狱攻击与防御综述/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">liuxu</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2025-03-15 20:19</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AE%89%E5%85%A8/">大模型安全</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E7%BB%BC%E8%BF%B0/">综述</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2025/03/18/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F%E9%87%8D%E6%9E%84%E5%A4%8D%E6%9D%82%E4%B8%9A%E5%8A%A1%E5%9C%BA%E6%99%AF/"
+                                   title="使用责任链模式重构复杂业务场景"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">使用责任链模式重构复杂业务场景</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2025/03/14/%E6%95%B0%E5%8F%91%E7%A7%91%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD%E8%B0%83%E7%A0%94/"
+                                   title="数发科具身智能行业调研"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">数发科具身智能行业调研</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF"><span class="nav-text">1. 研究背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95%E5%88%86%E7%B1%BB"><span class="nav-text">2. 攻击方法分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BD%E7%9B%92%E6%94%BB%E5%87%BB%EF%BC%88%E9%9C%80%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%9E%8B%E5%86%85%E9%83%A8%E4%BF%A1%E6%81%AF%EF%BC%89"><span class="nav-text">白盒攻击（需访问模型内部信息）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%91%E7%9B%92%E6%94%BB%E5%87%BB%EF%BC%88%E4%BB%85%E9%9C%80%E6%A8%A1%E5%9E%8B%E8%BE%93%E5%87%BA%EF%BC%89"><span class="nav-text">黑盒攻击（仅需模型输出）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E5%88%86%E7%B1%BB"><span class="nav-text">3. 防御方法分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA%E7%BA%A7%E9%98%B2%E5%BE%A1%EF%BC%88%E4%B8%8D%E4%BF%AE%E6%94%B9%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="nav-text">提示级防御（不修改模型）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E7%BA%A7%E9%98%B2%E5%BE%A1%EF%BC%88%E4%BF%AE%E6%94%B9%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0%EF%BC%89"><span class="nav-text">模型级防御（修改模型参数）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E8%AF%84%E4%BC%B0"><span class="nav-text">4. 评估</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%84%E4%BC%B0%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-text">评估数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%84%E4%BC%B0%E5%B7%A5%E5%85%B7%E5%8C%85"><span class="nav-text">评估工具包</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E6%80%BB%E7%BB%93"><span class="nav-text">5. 总结</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    &copy;&nbsp;2025
+    
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">liuxu</a>
+        
+    </div>
+
+    <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+
+    
+        <div class="count-info info-item">
+            
+
+            
+                <span class="count-item border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-item border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    
+
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF"><span class="nav-text">1. 研究背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95%E5%88%86%E7%B1%BB"><span class="nav-text">2. 攻击方法分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BD%E7%9B%92%E6%94%BB%E5%87%BB%EF%BC%88%E9%9C%80%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%9E%8B%E5%86%85%E9%83%A8%E4%BF%A1%E6%81%AF%EF%BC%89"><span class="nav-text">白盒攻击（需访问模型内部信息）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%91%E7%9B%92%E6%94%BB%E5%87%BB%EF%BC%88%E4%BB%85%E9%9C%80%E6%A8%A1%E5%9E%8B%E8%BE%93%E5%87%BA%EF%BC%89"><span class="nav-text">黑盒攻击（仅需模型输出）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E5%88%86%E7%B1%BB"><span class="nav-text">3. 防御方法分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA%E7%BA%A7%E9%98%B2%E5%BE%A1%EF%BC%88%E4%B8%8D%E4%BF%AE%E6%94%B9%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="nav-text">提示级防御（不修改模型）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E7%BA%A7%E9%98%B2%E5%BE%A1%EF%BC%88%E4%BF%AE%E6%94%B9%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0%EF%BC%89"><span class="nav-text">模型级防御（修改模型参数）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E8%AF%84%E4%BC%B0"><span class="nav-text">4. 评估</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%84%E4%BC%B0%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-text">评估数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%84%E4%BC%B0%E5%B7%A5%E5%85%B7%E5%8C%85"><span class="nav-text">评估工具包</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E6%80%BB%E7%BB%93"><span class="nav-text">5. 总结</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+
+
+<!-- common js -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/toggle-theme.js"></script>
+
+<script src="/js/code-block.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local search -->
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+<!-- lazyload -->
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="pjax">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+            
+<script src="/js/post/copyright-info.js"></script>
+
+        
+
+        <!-- share -->
+        
+            
+<script src="/js/post/share.js"></script>
+
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
